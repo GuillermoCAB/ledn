@@ -1,10 +1,16 @@
 import { Text, Grid, Box, Loader, Alert, Center } from "@mantine/core";
-import { usePlanets } from "../hooks";
+import { useFilteredPlanets } from "../hooks";
 import { Planet } from "../types";
 import PlanetCard from "../components/PlanetCard";
+import SearchInput from "../components/SearchInput";
 
 const Summary: React.FC = () => {
-  const { data, isLoading, error } = usePlanets();
+  const { filteredPlanets, isLoading, error, searchTerm, setSearchTerm } =
+    useFilteredPlanets();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
   if (isLoading) {
     return (
@@ -34,10 +40,14 @@ const Summary: React.FC = () => {
         </Text>
       </Box>
 
-      {/* Add SearchInput Here */}
+      <SearchInput
+        placeholder="🔍 Search planets by name..."
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
 
       <Grid>
-        {data?.planets.map((planet: Planet) => (
+        {filteredPlanets.map((planet: Planet) => (
           <Grid.Col key={planet.id} span={{ base: 12, sm: 6, lg: 4 }}>
             <PlanetCard planet={planet} />
           </Grid.Col>
