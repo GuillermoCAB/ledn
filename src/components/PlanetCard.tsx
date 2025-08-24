@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Text, Badge, Group, Button, Box, Tooltip } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { Planet } from "../types";
+import { checkIfPropIsUnknown } from "../utils";
 
 interface PlanetCardProps {
   planet: Planet;
@@ -21,15 +22,6 @@ const PlanetCard: React.FC<PlanetCardProps> = React.memo(({ planet }) => {
             </Text>
           </Group>
         </Box>
-        <Badge
-          variant="light"
-          size="lg"
-          style={{
-            border: `1px solid blue`,
-          }}
-        >
-          Planet
-        </Badge>
       </Group>
 
       <Group mb="lg" gap="md">
@@ -60,7 +52,10 @@ const PlanetCard: React.FC<PlanetCardProps> = React.memo(({ planet }) => {
       </Group>
 
       <Text size="sm" c="gray.4" mb="lg">
-        Population: {parseInt(planet.population).toLocaleString()}
+        Population:{" "}
+        {checkIfPropIsUnknown(planet.population)
+          ? planet.population
+          : parseInt(planet.population).toLocaleString()}
       </Text>
 
       <Button
@@ -70,7 +65,6 @@ const PlanetCard: React.FC<PlanetCardProps> = React.memo(({ planet }) => {
         fullWidth
         mt="auto"
         size="md"
-        style={{ transition: "all 0.3s ease" }}
       >
         View Financial Details
       </Button>
