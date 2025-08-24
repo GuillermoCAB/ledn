@@ -46,3 +46,19 @@ export interface Transaction {
 export interface ExchangeRate {
   rate: string;
 }
+
+export interface ExchangeRate {
+  rate: string;
+}
+
+export interface PlanetsResponse {
+  planets: Planet[];
+}
+
+export interface UsersResponse {
+  users: User[];
+}
+
+export interface TransactionsResponse {
+  transactions: Transaction[];
+}
