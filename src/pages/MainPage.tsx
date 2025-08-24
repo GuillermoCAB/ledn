@@ -1,6 +1,26 @@
-import { Text, Grid, Box } from "@mantine/core";
+import { Text, Grid, Box, Loader, Alert, Center } from "@mantine/core";
+import { usePlanets } from "../hooks";
+import { Planet } from "../types";
 
 const MainPage: React.FC = () => {
+  const { data, isLoading, error } = usePlanets();
+
+  if (isLoading) {
+    return (
+      <Center h={400}>
+        <Loader size="lg" />
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert color="red" title="Error loading planets">
+        Failed to load planets data. Please try again.
+      </Alert>
+    );
+  }
+
   return (
     <Box>
       <Box mb="xl" ta="center">
@@ -15,7 +35,13 @@ const MainPage: React.FC = () => {
 
       {/* Add SearchInput Here */}
 
-      <Grid>{/* Add Planets Here */}</Grid>
+      <Grid>
+        {data?.planets.map((planet: Planet) => (
+          <Grid.Col key={planet.id} span={{ base: 12, sm: 6, lg: 4 }}>
+            {`Planet: ${planet.name}`}
+          </Grid.Col>
+        ))}
+      </Grid>
     </Box>
   );
 };
