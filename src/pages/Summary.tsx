@@ -3,7 +3,7 @@ import { usePlanets } from "../hooks";
 import { Planet } from "../types";
 import PlanetCard from "../components/PlanetCard";
 
-const MainPage: React.FC = () => {
+const Summary: React.FC = () => {
   const { data, isLoading, error } = usePlanets();
 
   if (isLoading) {
@@ -47,4 +47,4 @@ const MainPage: React.FC = () => {
   );
 };
 
-export default MainPage;
+export default Summary;

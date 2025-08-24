@@ -1,11 +1,11 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { MainPage } from "../pages";
+import { Summary } from "../pages";
 
 const AppRoutes = () => {
   return (
     <Router>
       <Routes>
-        <Route key="main" path="/" element={<MainPage />} />
+        <Route key="summary" path="/" element={<Summary />} />
       </Routes>
     </Router>
   );
