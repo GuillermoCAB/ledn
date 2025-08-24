@@ -1,6 +1,7 @@
 import { Text, Grid, Box, Loader, Alert, Center } from "@mantine/core";
 import { usePlanets } from "../hooks";
 import { Planet } from "../types";
+import PlanetCard from "../components/PlanetCard";
 
 const MainPage: React.FC = () => {
   const { data, isLoading, error } = usePlanets();
@@ -38,7 +39,7 @@ const MainPage: React.FC = () => {
       <Grid>
         {data?.planets.map((planet: Planet) => (
           <Grid.Col key={planet.id} span={{ base: 12, sm: 6, lg: 4 }}>
-            {`Planet: ${planet.name}`}
+            <PlanetCard planet={planet} />
           </Grid.Col>
         ))}
       </Grid>
