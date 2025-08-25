@@ -9,5 +9,6 @@ export const useExchangeRate = () => {
       const { data } = await api.get("/exchange-rate");
       return data;
     },
+    refetchInterval: 1000,
   });
 };
