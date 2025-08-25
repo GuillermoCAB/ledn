@@ -1,4 +1,4 @@
-import { Alert, Badge, Card, Grid, Group, Paper, Text } from "@mantine/core";
+import { Alert, Grid, Group, Paper, Text } from "@mantine/core";
 import {
   useExchangeRate,
   useTransactionsByUsers,
@@ -6,12 +6,14 @@ import {
   useFinancialSummary,
 } from "../hooks";
 import { useMemo } from "react";
+import { CurrencyCard } from "./CurrencyCard";
+import { CurrencyOpts } from "../types";
 
-interface TransactionTableProps {
+interface FinancialSummaryProps {
   id: string;
 }
 
-export const FinancialSummary: React.FC<TransactionTableProps> = ({ id }) => {
+export const FinancialSummary: React.FC<FinancialSummaryProps> = ({ id }) => {
   const { data: exchangeRate } = useExchangeRate();
   const { data: usersData } = useUsersByPlanet(id!);
 
@@ -24,6 +26,11 @@ export const FinancialSummary: React.FC<TransactionTableProps> = ({ id }) => {
 
   const { gcsTotal, icsTotal, gcsTransactions, icsTransactions } =
     useFinancialSummary({ transactions: transactionsData?.transactions });
+
+  const exchangeRateValue = parseFloat(exchangeRate?.rate || "1");
+
+  const gcsToIcs = gcsTotal.div(exchangeRateValue);
+  const icsToGcs = icsTotal.mul(exchangeRateValue);
 
   return (
     <Grid.Col span={{ base: 12, lg: 8 }}>
@@ -39,48 +46,21 @@ export const FinancialSummary: React.FC<TransactionTableProps> = ({ id }) => {
 
         <Grid>
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Card p="xl" radius="lg">
-              <Text
-                size="sm"
-                c="blue.3"
-                fw={600}
-                tt="uppercase"
-                style={{ letterSpacing: "1px" }}
-              >
-                Galactic Credit Standard
-              </Text>
-              <Text size="3xl" fw={900} c="blue.4" mb="xs">
-                {gcsTotal.toFixed(2)} GCS
-              </Text>
-              <Text size="sm" c="blue.6" mb="md">
-                {gcsTotal.div(exchangeRate?.rate || 1).toFixed(2)} ICS
-              </Text>
-              <Badge
-                variant="gradient"
-                gradient={{ from: "blue.4", to: "blue.6" }}
-                size="lg"
-                fullWidth
-              >
-                {gcsTransactions} transactions
-              </Badge>
-            </Card>
+            <CurrencyCard
+              currency={CurrencyOpts.GCS}
+              total={gcsTotal}
+              convertedAmount={gcsToIcs}
+              transactionCount={gcsTransactions}
+            />
           </Grid.Col>
 
           <Grid.Col span={{ base: 12, sm: 6 }}>
-            <Card p="xl" radius="lg">
-              <Text size="sm" c="orange.3" fw={600} tt="uppercase">
-                Imperial Crown Standard
-              </Text>
-              <Text size="3xl" fw={900} c="orange.4" mb="xs">
-                {icsTotal.toFixed(2)} ICS
-              </Text>
-              <Text size="sm" c="orange.6" mb="md">
-                {icsTotal.mul(exchangeRate?.rate || 1).toFixed(2)} GCS
-              </Text>
-              <Badge variant="gradient" size="lg" fullWidth>
-                {icsTransactions} transactions
-              </Badge>
-            </Card>
+            <CurrencyCard
+              currency={CurrencyOpts.ICS}
+              total={icsTotal}
+              convertedAmount={icsToGcs}
+              transactionCount={icsTransactions}
+            />
           </Grid.Col>
         </Grid>
 
