@@ -38,9 +38,9 @@ export interface Transaction {
   id: string;
   user: number;
   amount: number;
-  currency: "GCS" | "ICS";
+  currency: CurrencyOpts;
   date: string;
-  status: "inProgress" | "completed" | "blocked";
+  status: TransactionStatus;
 }
 
 export interface ExchangeRate {
@@ -67,4 +67,9 @@ export enum TransactionStatus {
   InProgress = "inProgress",
   Completed = "completed",
   Blocked = "blocked",
+}
+
+export enum CurrencyOpts {
+  GCS = "GCS",
+  ICS = "ICS",
 }
