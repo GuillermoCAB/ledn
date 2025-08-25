@@ -1,9 +1,12 @@
 import { Text, Grid, Box } from "@mantine/core";
 import { useFilteredPlanets } from "../hooks";
 import { Planet } from "../types";
-import PlanetCard from "../components/PlanetCard";
-import SearchInput from "../components/SearchInput";
-import { ErrorState, LoadingState } from "../components";
+import {
+  ErrorState,
+  LoadingState,
+  PlanetCard,
+  SearchInput,
+} from "../components";
 
 const Summary: React.FC = () => {
   const { filteredPlanets, isLoading, error, searchTerm, setSearchTerm } =

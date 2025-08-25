@@ -1,18 +1,17 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Text,
   Card,
   Grid,
   Group,
-  Loader,
-  Center,
-  Alert,
   Paper,
   Divider,
   Stack,
+  Button,
 } from "@mantine/core";
 import { usePlanet } from "../hooks";
 import { checkIfPropIsUnknown } from "../utils";
+import { ErrorState, LoadingState, TransactionTable } from "../components";
 
 const PlanetDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,24 +23,25 @@ const PlanetDetail: React.FC = () => {
   } = usePlanet(id!);
 
   if (planetLoading) {
-    return (
-      <Center h={400}>
-        <Loader size="lg" />
-      </Center>
-    );
+    return <LoadingState />;
   }
 
   if (planetError || !planet) {
     return (
-      <Alert color="red" title="Error loading planet">
-        Failed to load planet data. Please try again.
-      </Alert>
+      <ErrorState
+        title="Error loading planet"
+        message="Failed to load planet data. Please try again."
+      />
     );
   }
 
   return (
     <>
-      <Grid>
+      <Button component={Link} to="/" variant="gradient">
+        ← Back to Galaxy
+      </Button>
+
+      <Grid mt="xl">
         <Grid.Col span={{ base: 12, lg: 4 }}>
           <Card shadow="xl" p="xl" radius="lg">
             <Text size="2xl" fw={700} ta="center">
@@ -110,13 +110,7 @@ const PlanetDetail: React.FC = () => {
         labelPosition="center"
       />
 
-      <Paper shadow="xl" p="xl" radius="lg" mb="xl">
-        <Group justify="space-between" mb="xl">
-          <Text size="xl" fw={700}>
-            Transaction History
-          </Text>
-        </Group>
-      </Paper>
+      <TransactionTable id={id!} />
     </>
   );
 };
