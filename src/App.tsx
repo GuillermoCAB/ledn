@@ -1,18 +1,13 @@
 import "@mantine/core/styles.css";
 
-import {
-  ColorSchemeScript,
-  Container,
-  createTheme,
-  MantineProvider,
-} from "@mantine/core";
+import { ColorSchemeScript, Container, MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AppRoutes from "./routes";
 import StarBackground from "./components/StarBackground";
+import { theme } from "./constants";
 
 const queryClient = new QueryClient();
-const theme = createTheme({});
 
 const App = () => {
   return (
