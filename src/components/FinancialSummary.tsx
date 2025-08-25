@@ -8,21 +8,35 @@ import {
 import { useMemo } from "react";
 import { CurrencyCard } from "./CurrencyCard";
 import { CurrencyOpts } from "../types";
+import { LoadingState } from "./LoadingState";
+import { ErrorState } from "./ErrorState";
 
 interface FinancialSummaryProps {
   id: string;
 }
 
 export const FinancialSummary: React.FC<FinancialSummaryProps> = ({ id }) => {
-  const { data: exchangeRate } = useExchangeRate();
-  const { data: usersData } = useUsersByPlanet(id!);
+  const {
+    data: exchangeRate,
+    isLoading: exchangeRateLoading,
+    error: exchangeRateError,
+  } = useExchangeRate();
+  const {
+    data: usersData,
+    isLoading: usersLoading,
+    error: usersError,
+  } = useUsersByPlanet(id!);
 
   const userIds = useMemo(
     () => usersData?.users?.map((user) => user.id) || [],
     [usersData]
   );
 
-  const { data: transactionsData } = useTransactionsByUsers(userIds);
+  const {
+    data: transactionsData,
+    isLoading: transactionsLoading,
+    error: transactionsError,
+  } = useTransactionsByUsers(userIds);
 
   const { gcsTotal, icsTotal, gcsTransactions, icsTransactions } =
     useFinancialSummary({ transactions: transactionsData?.transactions });
@@ -31,6 +45,19 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({ id }) => {
 
   const gcsToIcs = gcsTotal.div(exchangeRateValue);
   const icsToGcs = icsTotal.mul(exchangeRateValue);
+
+  if (exchangeRateLoading || usersLoading || transactionsLoading) {
+    return <LoadingState />;
+  }
+
+  if (exchangeRateError || usersError || transactionsError) {
+    return (
+      <ErrorState
+        title="Error loading transactions"
+        message="Failed to load transaction data. Please try again."
+      />
+    );
+  }
 
   return (
     <Grid.Col span={{ base: 12, lg: 8 }}>
