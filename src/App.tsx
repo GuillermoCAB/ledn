@@ -9,6 +9,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import AppRoutes from "./routes";
+import StarBackground from "./components/StarBackground";
 
 const queryClient = new QueryClient();
 const theme = createTheme({});
@@ -18,6 +19,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ColorSchemeScript defaultColorScheme="auto" />
       <MantineProvider theme={theme} defaultColorScheme="auto">
+        <StarBackground />
         <Container size="xl" p="md">
           <AppRoutes />
         </Container>

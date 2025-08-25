@@ -9,4 +9,5 @@ export * from "./PlanetCard";
 export * from "./PlanetFieldDisplay";
 export * from "./PlanetInfoTable";
 export * from "./SearchInput";
+export * from "./StarBackground";
 export * from "./StatusBadge";
