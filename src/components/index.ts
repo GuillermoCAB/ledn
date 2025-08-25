@@ -1,9 +1,9 @@
+export * from "./FinancialSummary";
 export * from "./TransactionTable";
 
 export * from "./CurrencyBadge";
 export * from "./CurrencyCard";
 export * from "./ErrorState";
-export * from "./FinancialSummary";
 export * from "./LoadingState";
 export * from "./PlanetCard";
 export * from "./PlanetFieldDisplay";

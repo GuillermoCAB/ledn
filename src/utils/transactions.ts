@@ -124,3 +124,78 @@ export const calculateFinancialMetrics = (
     inProgressCount: metrics.inProgressCount,
   };
 };
+
+/**
+ * Converts GCS amount to ICS using the exchange rate
+ * @param gcsAmount - Amount in GCS currency
+ * @param exchangeRate - Current exchange rate as string
+ * @returns Converted amount in ICS
+ */
+export const convertGcsToIcs = (
+  gcsAmount: Decimal,
+  exchangeRate?: string
+): Decimal => {
+  const rate = parseFloat(exchangeRate || "0");
+  return gcsAmount.div(rate);
+};
+
+/**
+ * Converts ICS amount to GCS using the exchange rate
+ * @param icsAmount - Amount in ICS currency
+ * @param exchangeRate - Current exchange rate as string
+ * @returns Converted amount in GCS
+ */
+export const convertIcsToGcs = (
+  icsAmount: Decimal,
+  exchangeRate?: string
+): Decimal => {
+  const rate = parseFloat(exchangeRate || "0");
+  return icsAmount.mul(rate);
+};
+
+/**
+ * Formats exchange rate text for display
+ * @param exchangeRate - Exchange rate as string
+ * @returns Formatted exchange rate text
+ */
+export const formatExchangeRateText = (exchangeRate: string): string => {
+  return `1 ICS = ${exchangeRate} GCS`;
+};
+/**
+ * Filters transactions to get only those that are in progress
+ * @param transactions - Array of transactions to filter
+ * @returns Array of transactions with InProgress status
+ */
+export const getInProgressTransactions = (
+  transactions: Transaction[]
+): Transaction[] => {
+  return transactions.filter(
+    (transaction) => transaction.status === TransactionStatus.InProgress
+  );
+};
+
+/**
+ * Maps transactions to blocked status for batch update
+ * @param transactions - Array of transactions to update
+ * @returns Array of transactions with Blocked status
+ */
+export const mapTransactionsToBlocked = (
+  transactions: Transaction[]
+): Transaction[] => {
+  return transactions.map((transaction) => ({
+    ...transaction,
+    status: TransactionStatus.Blocked,
+  }));
+};
+
+/**
+ * Gets transactions that need to be blocked (currently in progress)
+ * @param transactions - Array of all transactions
+ * @returns Array of transactions ready to be blocked
+ */
+export const getTransactionsToBlock = (
+  transactions: Transaction[]
+): Transaction[] => {
+  const inProgressTransactions = getInProgressTransactions(transactions);
+  return mapTransactionsToBlocked(inProgressTransactions);
+};
