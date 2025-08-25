@@ -76,6 +76,32 @@ export enum CurrencyOpts {
   ICS = "ICS",
 }
 
+export enum TerrainFilterOpts {
+  Desert = "desert",
+  Grasslands = "grasslands",
+  Jungle = "jungle",
+  Mountains = "mountains",
+  Ocean = "ocean",
+  Swamp = "swamp",
+  Tundra = "tundra",
+  Urban = "urban",
+  Volcanic = "volcanic",
+  Forest = "forest",
+  GasGiant = "gas giant",
+}
+
+export enum ClimateFilterOpts {
+  Arid = "arid",
+  Temperate = "temperate",
+  Tropical = "tropical",
+  Frozen = "frozen",
+  Hot = "hot",
+  Murky = "murky",
+  Frigid = "frigid",
+  Humid = "humid",
+  Polluted = "polluted",
+}
+
 export interface FinancialSummary {
   gcsTotal: Decimal;
   icsTotal: Decimal;
