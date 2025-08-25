@@ -1,5 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
-import { TransactionsResponse } from "../../types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Transaction, TransactionsResponse } from "../../types";
 import api from "../../constants/baseApi";
 
 export const useTransactions = () => {
@@ -22,5 +22,21 @@ export const useTransactionsByUsers = (userIds: string[]) => {
       return data;
     },
     enabled: userIds.length > 0,
+  });
+};
+
+export const useUpdateTransactionsBatch = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (transactions: Transaction[]) => {
+      const { data } = await api.put("/transactions/update-batch", {
+        transactions,
+      });
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    },
   });
 };
