@@ -1,5 +1,6 @@
-import { Alert, MantineTheme } from "@mantine/core";
+import { Alert, Card, MantineTheme, CardProps } from "@mantine/core";
 import styled from "styled-components";
+import { theme } from "../constants";
 
 export const inputStyles = (theme: MantineTheme) => ({
   input: {
@@ -59,6 +60,16 @@ export const PulsingAlert = styled(Alert)`
     100% {
       box-shadow: 0 0 0 0 rgba(255, 152, 0, 0);
     }
+  }
+`;
+
+export const HoverableCard = styled(Card)<CardProps>`
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(218, 165, 32, 0.3);
+    border-color: ${theme.colors?.coruscant?.[9] + "30"};
   }
 `;
 

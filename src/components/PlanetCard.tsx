@@ -1,13 +1,14 @@
 import React from "react";
-import { Card, Text, Badge, Group, Button, Box, Tooltip } from "@mantine/core";
+import { Text, Badge, Group, Button, Box, Tooltip } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { Planet } from "../types";
-import { checkIfPropIsUnknown, formatNumericValue } from "../utils";
+import { formatNumericValue } from "../utils";
 import {
   cardStyles,
   climateBadgeStyles,
   gradients,
   populationInfoStyles,
+  HoverableCard,
 } from "./commonStyles";
 
 interface PlanetCardProps {
@@ -16,7 +17,7 @@ interface PlanetCardProps {
 
 export const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
   return (
-    <Card shadow="lg" p="lg" radius="md" h="100%" style={cardStyles}>
+    <HoverableCard shadow="lg" p="lg" radius="md" h="100%" style={cardStyles}>
       <Group justify="space-between" mb="lg" align="start">
         <Box>
           <Text
@@ -36,12 +37,21 @@ export const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
         </Box>
       </Group>
 
-      <Group mb="lg" gap="md">
+      <Group gap="sm" mb="sm" align="center">
+        <Text size="sm" c="coruscant.3">
+          Climate:
+        </Text>
         <Tooltip label={`Climate: ${planet.climate}`} position="top">
           <Badge variant="outline" size="md" style={climateBadgeStyles}>
             {planet.climate}
           </Badge>
         </Tooltip>
+      </Group>
+
+      <Group gap="sm" mb="sm" align="center">
+        <Text size="sm" c="coruscant.3">
+          Terrain:
+        </Text>
         <Tooltip label={`Terrain: ${planet.terrain}`} position="top">
           <Badge variant="outline" size="md" style={climateBadgeStyles}>
             {planet.terrain}
@@ -65,6 +75,6 @@ export const PlanetCard: React.FC<PlanetCardProps> = ({ planet }) => {
       >
         View Financial Details
       </Button>
-    </Card>
+    </HoverableCard>
   );
 };
