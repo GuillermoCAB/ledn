@@ -3,6 +3,7 @@ import { Text, Grid, Divider, Button } from "@mantine/core";
 import { ErrorState, TransactionTable } from "../components";
 import { FinancialSummary } from "../components/FinancialSummary";
 import PlanetInfoTable from "../components/PlanetInfoTable";
+import { gradients } from "../components/commonStyles";
 
 const PlanetDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +19,12 @@ const PlanetDetail: React.FC = () => {
 
   return (
     <>
-      <Button component={Link} to="/" variant="gradient">
+      <Button
+        component={Link}
+        to="/"
+        variant="gradient"
+        gradient={gradients.coruscant}
+      >
         ← Back to Galaxy
       </Button>
 

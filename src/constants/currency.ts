@@ -4,13 +4,13 @@ export const CURRENCY_CONFIG = {
   [CurrencyOpts.GCS]: {
     name: "Galactic Credit Standard",
     symbol: "GCS",
-    color: "blue",
+    color: "coruscant",
     convertedSymbol: "ICS",
   },
   [CurrencyOpts.ICS]: {
     name: "Imperial Crown Standard",
     symbol: "ICS",
-    color: "orange",
+    color: "coruscant",
     convertedSymbol: "GCS",
   },
 };

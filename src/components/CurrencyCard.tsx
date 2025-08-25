@@ -2,6 +2,7 @@ import { Badge, Card, Text } from "@mantine/core";
 import { CurrencyOpts } from "../types";
 import Decimal from "decimal.js";
 import { CURRENCY_CONFIG } from "../constants";
+import { currencyCardStyles } from "./commonStyles";
 
 interface CurrencyCardProps {
   currency: CurrencyOpts;
@@ -20,7 +21,7 @@ export const CurrencyCard: React.FC<CurrencyCardProps> = ({
   const config = CURRENCY_CONFIG[currency];
 
   return (
-    <Card p="xl" radius="lg" withBorder>
+    <Card p="xl" radius="lg" withBorder style={currencyCardStyles}>
       <Text
         size="sm"
         c={`${config.color}.3`}

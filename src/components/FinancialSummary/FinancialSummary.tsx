@@ -13,6 +13,7 @@ import { FinancialSummaryHeader } from "./FinancialSummaryHeader";
 import { CurrencyCardsGrid } from "./CurrencyCardsGrid";
 import { ExchangeRateAlert } from "./ExchangeRateAlert";
 import { SecurityAlert } from "./SecurityAlert";
+import { cardStyles } from "../commonStyles";
 
 interface FinancialSummaryProps {
   id: string;
@@ -65,7 +66,7 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({ id }) => {
 
   return (
     <Grid.Col span={{ base: 12, lg: 8 }}>
-      <Paper shadow="xl" p="xl" radius="lg">
+      <Paper shadow="xl" p="xl" radius="lg" style={cardStyles}>
         <FinancialSummaryHeader />
 
         <CurrencyCardsGrid

@@ -1,5 +1,6 @@
-import { Text, Group } from "@mantine/core";
+import { Text, Group, Badge } from "@mantine/core";
 import { memo } from "react";
+import { gradients, planetFieldDisplayStyles } from "./commonStyles";
 
 interface PlanetFieldDisplayProps {
   label: string;
@@ -8,13 +9,13 @@ interface PlanetFieldDisplayProps {
 
 const PlanetFieldDisplay: React.FC<PlanetFieldDisplayProps> = memo(
   ({ label, value }) => (
-    <Group justify="space-between" p="md">
-      <Text size="sm" fw={600}>
+    <Group justify="space-between" p="md" style={planetFieldDisplayStyles}>
+      <Text size="sm" fw={600} c="coruscant.4">
         {label}:
       </Text>
-      <Text size="sm" fw={700} c="gray.3">
+      <Badge variant="gradient" gradient={gradients.coruscant} size="lg">
         {value}
-      </Text>
+      </Badge>
     </Group>
   )
 );

@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { Button, Group } from "@mantine/core";
-import { getCurrencyGradient } from "../../utils";
 import { CurrencyOpts } from "../../types";
 import { CurrencyOptions } from "../../constants";
+import { gradients } from "../commonStyles";
 
 interface CurrencyFilterProps {
   selectedCurrency: CurrencyOpts | "all";
@@ -23,8 +23,8 @@ const CurrencyFilter: React.FC<CurrencyFilterProps> = React.memo(
             key={value}
             size="sm"
             variant={selectedCurrency === value ? "gradient" : "outline"}
-            gradient={getCurrencyGradient(value as CurrencyOpts)}
-            color={value === CurrencyOpts.GCS ? "blue" : "orange"}
+            gradient={gradients.coruscant}
+            color="coruscant"
             onClick={handleClick(value)}
             aria-label={ariaLabel}
           >

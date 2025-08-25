@@ -4,6 +4,7 @@ import { usePlanet } from "../hooks";
 import { ErrorState, LoadingState } from "../components";
 import { PLANET_FIELDS } from "../constants/planets";
 import PlanetFieldDisplay from "./PlanetFieldDisplay";
+import { cardStyles, textShadows } from "./commonStyles";
 
 interface PlanetInfoTableProps {
   id: string;
@@ -47,8 +48,15 @@ const PlanetInfoTable: React.FC<PlanetInfoTableProps> = ({ id }) => {
 
   return (
     <Grid.Col span={{ base: 12, lg: 4 }}>
-      <Card shadow="xl" p="xl" radius="lg">
-        <Text size="2xl" fw={700} ta="center" mb="lg">
+      <Card shadow="xl" p="xl" radius="lg" style={cardStyles}>
+        <Text
+          size="2xl"
+          fw={700}
+          c="coruscant.3"
+          ta="center"
+          style={textShadows.strong}
+          mb="lg"
+        >
           {planet.name}
         </Text>
         <Stack gap="lg">

@@ -1,28 +1,25 @@
 import React from "react";
 import { CurrencyOpts, Transaction } from "../../types";
-import { tableStyles } from "./tableStyles";
-import { CurrencyBadge } from "../CurrencyBadge";
+import { Row, tableStyles } from "./tableStyles";
 import { StatusBadge } from "../StatusBadge";
 import { useConvertCurrency } from "../../hooks/useConvertCurrency";
 
 interface TransactionRowProps {
   transaction: Transaction;
+  index: number;
 }
 
-const TransactionRow: React.FC<TransactionRowProps> = ({ transaction }) => {
+const TransactionRow: React.FC<TransactionRowProps> = ({
+  transaction,
+  index,
+}) => {
   const { convert } = useConvertCurrency();
   return (
-    <tr style={tableStyles.row}>
+    <Row>
       <td style={tableStyles.dateCell}>
         {new Date(transaction.date).toLocaleDateString()}
       </td>
       <td style={tableStyles.userCell}>#{transaction.user}</td>
-      <td style={tableStyles.amountCell}>
-        <div style={tableStyles.group}>
-          {transaction.amount.toFixed(2)}
-          <CurrencyBadge currency={transaction.currency} />
-        </div>
-      </td>
       <td style={tableStyles.currencyCell}>
         {convert(transaction.amount, transaction.currency, CurrencyOpts.GCS)}{" "}
         GCS
@@ -34,7 +31,7 @@ const TransactionRow: React.FC<TransactionRowProps> = ({ transaction }) => {
       <td>
         <StatusBadge status={transaction.status} />
       </td>
-    </tr>
+    </Row>
   );
 };
 

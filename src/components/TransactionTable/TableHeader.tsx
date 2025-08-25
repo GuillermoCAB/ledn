@@ -6,15 +6,13 @@ interface TableHeaderProps {
 }
 
 const TableHeader: React.FC<TableHeaderProps> = ({ columns }) => (
-  <thead>
-    <tr style={tableStyles.headerRow}>
-      {columns.map((column) => (
-        <th key={column.key} style={tableStyles.headerCell}>
-          {column.label}
-        </th>
-      ))}
-    </tr>
-  </thead>
+  <tr style={tableStyles.headerRow}>
+    {columns.map((column) => (
+      <th key={column.key} style={tableStyles.headerCell}>
+        {column.label}
+      </th>
+    ))}
+  </tr>
 );
 
 export default TableHeader;

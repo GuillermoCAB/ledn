@@ -1,5 +1,6 @@
-import { Alert, Button, Group, Text } from "@mantine/core";
+import { Button, Group, Text } from "@mantine/core";
 import { financialSummaryStyles } from "./financialSummaryStyles";
+import { PulsingAlert } from "../commonStyles";
 
 interface SecurityAlertProps {
   inProgressCount: number;
@@ -17,14 +18,14 @@ export const SecurityAlert: React.FC<SecurityAlertProps> = ({
   }
 
   return (
-    <Alert
+    <PulsingAlert
       color="orange"
       mt="xl"
-      title={<Text fw={600}>Security Alert</Text>}
+      title={<Text fw={600}>🚨 Security Alert</Text>}
       style={financialSummaryStyles.securityAlertStyles}
     >
       <Group justify="space-between" align="center">
-        <Text size="md" fw={500}>
+        <Text size="md" fw={500} c="white">
           {inProgressCount} suspicious in-progress transactions detected
         </Text>
         <Button
@@ -34,9 +35,9 @@ export const SecurityAlert: React.FC<SecurityAlertProps> = ({
           onClick={onBlockTransactions}
           style={financialSummaryStyles.blockButtonStyles}
         >
-          Block All Transactions
+          🛡️ Block All Transactions
         </Button>
       </Group>
-    </Alert>
+    </PulsingAlert>
   );
 };

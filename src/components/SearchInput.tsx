@@ -1,5 +1,6 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
+import { inputStyles } from "./commonStyles";
 
 interface SearchInputProps {
   value: string;
@@ -16,6 +17,7 @@ export const SearchInput: React.FC<SearchInputProps> = React.memo(
         onChange={onChange}
         mb="xl"
         size="lg"
+        styles={inputStyles}
       />
     );
   }

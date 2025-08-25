@@ -7,6 +7,7 @@ import { tableStyles } from "./tableStyles";
 import TableHeader from "./TableHeader";
 import TransactionRow from "./TransactionRow";
 import CurrencyFilter from "./CurrencyFilter";
+import { cardStyles, textShadows } from "../commonStyles";
 
 interface TransactionTableProps {
   id: string;
@@ -56,9 +57,9 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
     }
 
     return (
-      <Paper shadow="xl" p="xl" radius="lg" mb="xl">
+      <Paper shadow="xl" p="xl" radius="lg" mb="xl" style={cardStyles}>
         <Group justify="space-between" mb="xl">
-          <Text size="xl" fw={700}>
+          <Text size="xl" fw={700} c="coruscant.3" style={textShadows.medium}>
             📋 Transaction History
           </Text>
           <CurrencyFilter
@@ -68,28 +69,28 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
         </Group>
 
         {filteredTransactions.length > 0 ? (
-          <div style={tableStyles.container}>
-            <table style={tableStyles.table}>
-              <TableHeader
-                columns={[
-                  { label: "Date", key: "date" },
-                  { label: "User ID", key: "user" },
-                  { label: "Amount (Original)", key: "amount" },
-                  { label: "Amount (GCS)", key: "gcs" },
-                  { label: "Amount (ICS)", key: "ics" },
-                  { label: "Status", key: "status" },
-                ]}
-              />
-              <tbody>
-                {filteredTransactions.map((transaction: Transaction) => (
+          <table style={tableStyles.table}>
+            <TableHeader
+              columns={[
+                { label: "Date", key: "date" },
+                { label: "User ID", key: "user" },
+                { label: "Amount (GCS)", key: "gcs" },
+                { label: "Amount (ICS)", key: "ics" },
+                { label: "Status", key: "status" },
+              ]}
+            />
+            <tbody>
+              {filteredTransactions.map(
+                (transaction: Transaction, index: number) => (
                   <TransactionRow
                     key={transaction.id}
                     transaction={transaction}
+                    index={index}
                   />
-                ))}
-              </tbody>
-            </table>
-          </div>
+                )
+              )}
+            </tbody>
+          </table>
         ) : (
           <Text c="gray.5" mt="md">
             No transactions found for users on this planet.
