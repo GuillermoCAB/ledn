@@ -83,3 +83,9 @@ export interface FinancialSummary {
   icsTransactions: number;
   inProgressCount: number;
 }
+
+export interface PlanetFieldConfig {
+  label: string;
+  key: keyof Pick<Planet, "climate" | "terrain" | "population" | "gravity">;
+  formatter?: (value: string) => string;
+}
