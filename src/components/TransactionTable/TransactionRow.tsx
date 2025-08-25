@@ -6,13 +6,9 @@ import { useConvertCurrency } from "../../hooks/useConvertCurrency";
 
 interface TransactionRowProps {
   transaction: Transaction;
-  index: number;
 }
 
-const TransactionRow: React.FC<TransactionRowProps> = ({
-  transaction,
-  index,
-}) => {
+const TransactionRow: React.FC<TransactionRowProps> = ({ transaction }) => {
   const { convert } = useConvertCurrency();
   return (
     <Row>

@@ -98,7 +98,6 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
                     <TransactionRow
                       key={transaction.id}
                       transaction={transaction}
-                      index={index}
                     />
                   )
                 )}
