@@ -1,4 +1,4 @@
-import { Text, Grid, Box, useMantineTheme, Title } from "@mantine/core";
+import { Text, Grid, Box, useMantineTheme, Title, Stack } from "@mantine/core";
 import { useFilteredPlanets } from "../hooks";
 import { Planet } from "../types";
 import {
@@ -6,13 +6,24 @@ import {
   LoadingState,
   PlanetCard,
   SearchInput,
+  TerrainFilter,
+  ClimateFilter,
 } from "../components";
 
 const Summary: React.FC = () => {
   const theme = useMantineTheme();
 
-  const { filteredPlanets, isLoading, error, searchTerm, setSearchTerm } =
-    useFilteredPlanets();
+  const { 
+    filteredPlanets, 
+    isLoading, 
+    error, 
+    searchTerm, 
+    setSearchTerm,
+    selectedTerrain,
+    setSelectedTerrain,
+    selectedClimate,
+    setSelectedClimate
+  } = useFilteredPlanets();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -54,11 +65,43 @@ const Summary: React.FC = () => {
         </Text>
       </Box>
 
-      <SearchInput
-        placeholder="🔍 Search planets by name..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-      />
+      <Stack gap="lg">
+        <SearchInput
+          placeholder="🔍 Search planets by name..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+        
+        <Stack gap="sm">
+          <Text 
+            size="sm" 
+            fw={600} 
+            c="coruscant.4"
+            style={{ textShadow: theme.other.textShadow.medium }}
+          >
+            🌍 Filter by Terrain
+          </Text>
+          <TerrainFilter
+            selectedTerrain={selectedTerrain}
+            onTerrainChange={setSelectedTerrain}
+          />
+        </Stack>
+
+        <Stack gap="sm">
+          <Text 
+            size="sm" 
+            fw={600} 
+            c="coruscant.4"
+            style={{ textShadow: theme.other.textShadow.medium }}
+          >
+            🌡️ Filter by Climate
+          </Text>
+          <ClimateFilter
+            selectedClimate={selectedClimate}
+            onClimateChange={setSelectedClimate}
+          />
+        </Stack>
+      </Stack>
 
       <Grid>
         {filteredPlanets.map((planet: Planet) => (
