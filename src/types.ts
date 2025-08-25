@@ -1,3 +1,5 @@
+import Decimal from "decimal.js";
+
 export interface Planet {
   name: string;
   rotation_period: string;
@@ -72,4 +74,12 @@ export enum TransactionStatus {
 export enum CurrencyOpts {
   GCS = "GCS",
   ICS = "ICS",
+}
+
+export interface FinancialSummary {
+  gcsTotal: Decimal;
+  icsTotal: Decimal;
+  gcsTransactions: number;
+  icsTransactions: number;
+  inProgressCount: number;
 }
