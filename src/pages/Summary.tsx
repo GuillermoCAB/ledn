@@ -1,8 +1,9 @@
-import { Text, Grid, Box, Loader, Alert, Center } from "@mantine/core";
+import { Text, Grid, Box } from "@mantine/core";
 import { useFilteredPlanets } from "../hooks";
 import { Planet } from "../types";
 import PlanetCard from "../components/PlanetCard";
 import SearchInput from "../components/SearchInput";
+import { ErrorState, LoadingState } from "../components";
 
 const Summary: React.FC = () => {
   const { filteredPlanets, isLoading, error, searchTerm, setSearchTerm } =
@@ -13,18 +14,15 @@ const Summary: React.FC = () => {
   };
 
   if (isLoading) {
-    return (
-      <Center h={400}>
-        <Loader size="lg" />
-      </Center>
-    );
+    return <LoadingState />;
   }
 
   if (error) {
     return (
-      <Alert color="red" title="Error loading planets">
-        Failed to load planets data. Please try again.
-      </Alert>
+      <ErrorState
+        title="Error loading planets"
+        message="Failed to load planets data. Please try again."
+      />
     );
   }
 
