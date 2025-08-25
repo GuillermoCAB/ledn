@@ -1,6 +1,5 @@
 export const tableStyles = {
   container: {
-    overflowX: "auto" as const,
     background: "rgba(255, 255, 255, 0.02)",
     borderRadius: "12px",
     border: "1px solid blue",

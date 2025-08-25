@@ -1,11 +1,12 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useTransactionsByUsers, useUsersByPlanet } from "../../hooks";
-import { Paper, Text } from "@mantine/core";
-import { Transaction } from "../../types";
+import { Group, Paper, Text } from "@mantine/core";
+import { CurrencyOpts, Transaction } from "../../types";
 import { LoadingState, ErrorState } from "..";
 import { tableStyles } from "./tableStyles";
 import TableHeader from "./TableHeader";
 import TransactionRow from "./TransactionRow";
+import CurrencyFilter from "./CurrencyFilter";
 
 interface TransactionTableProps {
   id: string;
@@ -13,6 +14,10 @@ interface TransactionTableProps {
 
 export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
   ({ id }) => {
+    const [selectedCurrency, setSelectedCurrency] = useState<
+      CurrencyOpts | "all"
+    >("all");
+
     const { data: usersData, isLoading: usersLoading } = useUsersByPlanet(id!);
 
     const userIds = useMemo(
@@ -25,6 +30,17 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
       isLoading: transactionsLoading,
       error: transactionsError,
     } = useTransactionsByUsers(userIds);
+
+    const filteredTransactions = useMemo(() => {
+      if (!transactionsData?.transactions) return [];
+
+      return transactionsData.transactions.filter(
+        (transaction: Transaction) => {
+          if (selectedCurrency === "all") return true;
+          return transaction.currency === selectedCurrency;
+        }
+      );
+    }, [transactionsData?.transactions, selectedCurrency]);
 
     if (transactionsLoading || usersLoading) {
       return <LoadingState />;
@@ -41,12 +57,17 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
 
     return (
       <Paper shadow="xl" p="xl" radius="lg" mb="xl">
-        <Text size="xl" fw={700}>
-          Transaction History
-        </Text>
+        <Group justify="space-between" mb="xl">
+          <Text size="xl" fw={700}>
+            📋 Transaction History
+          </Text>
+          <CurrencyFilter
+            selectedCurrency={selectedCurrency}
+            onCurrencyChange={setSelectedCurrency}
+          />
+        </Group>
 
-        {transactionsData?.transactions.length &&
-        transactionsData?.transactions.length > 0 ? (
+        {filteredTransactions.length > 0 ? (
           <div style={tableStyles.container}>
             <table style={tableStyles.table}>
               <TableHeader
@@ -60,14 +81,12 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
                 ]}
               />
               <tbody>
-                {transactionsData?.transactions.map(
-                  (transaction: Transaction) => (
-                    <TransactionRow
-                      key={transaction.id}
-                      transaction={transaction}
-                    />
-                  )
-                )}
+                {filteredTransactions.map((transaction: Transaction) => (
+                  <TransactionRow
+                    key={transaction.id}
+                    transaction={transaction}
+                  />
+                ))}
               </tbody>
             </table>
           </div>

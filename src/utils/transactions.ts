@@ -68,8 +68,8 @@ export const getStatusGradient = (status: Transaction["status"]) => ({
  * @returns Gradient object with from/to colors
  */
 export const getCurrencyGradient = (currency: Transaction["currency"]) => ({
-  from: currency === "GCS" ? "blue.4" : "orange.4",
-  to: currency === "GCS" ? "blue.6" : "orange.6",
+  from: currency === CurrencyOpts.GCS ? "blue.4" : "orange.4",
+  to: currency === CurrencyOpts.GCS ? "blue.6" : "orange.6",
 });
 
 /**
