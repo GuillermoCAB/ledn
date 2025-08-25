@@ -6,12 +6,15 @@ import debounce from "lodash.debounce";
 export const useFilteredPlanets = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+
   const [selectedTerrain, setSelectedTerrain] = useState<
     TerrainFilterOpts | "all"
   >("all");
+
   const [selectedClimate, setSelectedClimate] = useState<
     ClimateFilterOpts | "all"
   >("all");
+
   const { data, isLoading, error } = usePlanets();
 
   const debouncedSetSearch = useMemo(

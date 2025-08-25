@@ -13,16 +13,16 @@ import {
 const Summary: React.FC = () => {
   const theme = useMantineTheme();
 
-  const { 
-    filteredPlanets, 
-    isLoading, 
-    error, 
-    searchTerm, 
+  const {
+    filteredPlanets,
+    isLoading,
+    error,
+    searchTerm,
     setSearchTerm,
     selectedTerrain,
     setSelectedTerrain,
     selectedClimate,
-    setSelectedClimate
+    setSelectedClimate,
   } = useFilteredPlanets();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +54,7 @@ const Summary: React.FC = () => {
         >
           🌌 CORUSCANT BANK - Galactic Planets Overview 🌌
         </Title>
+
         <Text
           c="gray.3"
           size="lg"
@@ -71,11 +72,11 @@ const Summary: React.FC = () => {
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        
+
         <Stack gap="sm">
-          <Text 
-            size="sm" 
-            fw={600} 
+          <Text
+            size="sm"
+            fw={600}
             c="coruscant.4"
             style={{ textShadow: theme.other.textShadow.medium }}
           >
@@ -87,10 +88,10 @@ const Summary: React.FC = () => {
           />
         </Stack>
 
-        <Stack gap="sm">
-          <Text 
-            size="sm" 
-            fw={600} 
+        <Stack gap="sm" mb="xl">
+          <Text
+            size="sm"
+            fw={600}
             c="coruscant.4"
             style={{ textShadow: theme.other.textShadow.medium }}
           >
