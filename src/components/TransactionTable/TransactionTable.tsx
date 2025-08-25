@@ -2,12 +2,13 @@ import React, { useMemo, useState } from "react";
 import { useTransactionsByUsers, useUsersByPlanet } from "../../hooks";
 import { Group, Paper, Text } from "@mantine/core";
 import { CurrencyOpts, Transaction } from "../../types";
-import { LoadingState, ErrorState } from "..";
+import { ErrorState } from "..";
 import { tableStyles } from "./tableStyles";
 import TableHeader from "./TableHeader";
 import TransactionRow from "./TransactionRow";
 import CurrencyFilter from "./CurrencyFilter";
 import { cardStyles, textShadows } from "../commonStyles";
+import { TransactionTableSkeleton } from "../skeletons";
 
 interface TransactionTableProps {
   id: string;
@@ -44,7 +45,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
     }, [transactionsData?.transactions, selectedCurrency]);
 
     if (transactionsLoading || usersLoading) {
-      return <LoadingState />;
+      return <TransactionTableSkeleton />;
     }
 
     if (transactionsError) {

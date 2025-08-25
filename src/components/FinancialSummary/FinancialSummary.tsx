@@ -7,13 +7,13 @@ import {
   useTransactionBlocking,
 } from "../../hooks";
 import { useMemo } from "react";
-import { LoadingState } from "../LoadingState";
 import { ErrorState } from "../ErrorState";
 import { FinancialSummaryHeader } from "./FinancialSummaryHeader";
 import { CurrencyCardsGrid } from "./CurrencyCardsGrid";
 import { ExchangeRateAlert } from "./ExchangeRateAlert";
 import { SecurityAlert } from "./SecurityAlert";
 import { cardStyles } from "../commonStyles";
+import { FinancialSummarySkeleton } from "../skeletons";
 
 interface FinancialSummaryProps {
   id: string;
@@ -52,7 +52,7 @@ export const FinancialSummary: React.FC<FinancialSummaryProps> = ({ id }) => {
   );
 
   if (exchangeRateLoading || usersLoading || transactionsLoading) {
-    return <LoadingState />;
+    return <FinancialSummarySkeleton />;
   }
 
   if (exchangeRateError || usersError || transactionsError) {

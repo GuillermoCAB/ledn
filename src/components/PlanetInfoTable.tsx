@@ -1,10 +1,11 @@
 import { Text, Card, Grid, Stack } from "@mantine/core";
 import { useMemo } from "react";
 import { usePlanet } from "../hooks";
-import { ErrorState, LoadingState } from "../components";
+import { ErrorState } from "../components";
 import { PLANET_FIELDS } from "../constants/planets";
 import PlanetFieldDisplay from "./PlanetFieldDisplay";
 import { cardStyles, textShadows } from "./commonStyles";
+import { PlanetInfoTableSkeleton } from "./skeletons";
 
 interface PlanetInfoTableProps {
   id: string;
@@ -34,7 +35,7 @@ const PlanetInfoTable: React.FC<PlanetInfoTableProps> = ({ id }) => {
   );
 
   if (planetLoading) {
-    return <LoadingState />;
+    return <PlanetInfoTableSkeleton />;
   }
 
   if (planetError || !planet) {
