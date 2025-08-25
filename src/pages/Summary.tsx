@@ -1,4 +1,4 @@
-import { Text, Grid, Box, useMantineTheme } from "@mantine/core";
+import { Text, Grid, Box, useMantineTheme, Title } from "@mantine/core";
 import { useFilteredPlanets } from "../hooks";
 import { Planet } from "../types";
 import {
@@ -34,15 +34,15 @@ const Summary: React.FC = () => {
   return (
     <Box>
       <Box mb="xl" ta="center">
-        <Text
-          size="2xl"
+        <Title
+          order={1}
           fw={700}
           c="coruscant.4"
           mb="md"
           style={{ textShadow: theme.other.textShadow.strong }}
         >
-          🌌 Galactic Planets Overview 🌌
-        </Text>
+          🌌 CORUSCANT BANK - Galactic Planets Overview 🌌
+        </Title>
         <Text
           c="gray.3"
           size="lg"
