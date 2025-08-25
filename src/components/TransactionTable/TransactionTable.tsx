@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from "react";
 import { useTransactionsByUsers, useUsersByPlanet } from "../../hooks";
-import { Group, Paper, Text, ScrollArea } from "@mantine/core";
+import { Group, Paper, Text } from "@mantine/core";
 import { CurrencyOpts, Transaction } from "../../types";
 import { ErrorState } from "..";
 import { tableStyles } from "./tableStyles";
 import TableHeader from "./TableHeader";
 import TransactionRow from "./TransactionRow";
 import CurrencyFilter from "./CurrencyFilter";
-import { cardStyles, textShadows } from "../commonStyles";
+import { cardStyles, StyledScrollArea, textShadows } from "../commonStyles";
 import { TransactionTableSkeleton } from "../skeletons";
 
 interface TransactionTableProps {
@@ -81,7 +81,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
         </Group>
 
         {filteredTransactions.length > 0 ? (
-          <ScrollArea.Autosize type="auto" scrollbars="x" offsetScrollbars>
+          <StyledScrollArea>
             <table style={{ ...tableStyles.table, minWidth: "600px" }}>
               <TableHeader
                 columns={[
@@ -104,7 +104,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
                 )}
               </tbody>
             </table>
-          </ScrollArea.Autosize>
+          </StyledScrollArea>
         ) : (
           <Text c="gray.5" mt="md">
             No transactions found for users on this planet.

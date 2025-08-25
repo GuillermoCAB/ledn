@@ -1,5 +1,5 @@
-import { Paper, Skeleton, Group, ScrollArea } from "@mantine/core";
-import { cardStyles } from "../commonStyles";
+import { Paper, Skeleton, Group } from "@mantine/core";
+import { cardStyles, StyledScrollArea } from "../commonStyles";
 import { tableStyles } from "../TransactionTable/tableStyles";
 
 const TransactionTableSkeleton: React.FC = () => {
@@ -21,7 +21,7 @@ const TransactionTableSkeleton: React.FC = () => {
         <Skeleton height={36} width="120px" radius="md" />
       </Group>
 
-      <ScrollArea.Autosize type="auto" scrollbars="x" offsetScrollbars>
+      <StyledScrollArea>
         <table style={{ ...tableStyles.table, minWidth: "600px" }}>
           <thead>
             <tr style={tableStyles.headerRow}>
@@ -64,7 +64,7 @@ const TransactionTableSkeleton: React.FC = () => {
             ))}
           </tbody>
         </table>
-      </ScrollArea.Autosize>
+      </StyledScrollArea>
     </Paper>
   );
 };

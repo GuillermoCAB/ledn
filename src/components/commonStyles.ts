@@ -73,6 +73,33 @@ export const HoverableCard = styled(Card)<CardProps>`
   }
 `;
 
+export const StyledScrollArea = styled.div`
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: ${theme.colors?.coruscant?.[7]} ${theme.colors?.coruscant?.[6]};
+
+  &::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${theme.colors?.background?.[6]};
+    border-radius: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors?.coruscant?.[7]};
+    border-radius: 6px;
+    border: 2px solid ${theme.colors?.background?.[6]};
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: ${theme.colors?.coruscant?.[6]};
+  }
+`;
+
 export const gradients = {
   coruscant: { from: "coruscant.5", to: "coruscant.7" },
 };
