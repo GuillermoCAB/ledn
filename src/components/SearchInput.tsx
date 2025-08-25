@@ -7,7 +7,7 @@ interface SearchInputProps {
   placeholder?: string;
 }
 
-const SearchInput: React.FC<SearchInputProps> = React.memo(
+export const SearchInput: React.FC<SearchInputProps> = React.memo(
   ({ value, onChange, placeholder = "🔍 Search..." }) => {
     return (
       <TextInput
@@ -20,7 +20,3 @@ const SearchInput: React.FC<SearchInputProps> = React.memo(
     );
   }
 );
-
-SearchInput.displayName = "SearchInput";
-
-export default SearchInput;

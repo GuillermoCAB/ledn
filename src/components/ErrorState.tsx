@@ -7,14 +7,12 @@ interface ErrorStateProps {
   color?: string;
 }
 
-const ErrorState: React.FC<ErrorStateProps> = ({ 
-  title, 
-  message, 
-  color = "red" 
+export const ErrorState: React.FC<ErrorStateProps> = ({
+  title,
+  message,
+  color = "red",
 }) => (
   <Alert color={color} title={title}>
     {message}
   </Alert>
 );
-
-export default ErrorState;
