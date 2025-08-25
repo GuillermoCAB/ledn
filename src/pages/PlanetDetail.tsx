@@ -1,36 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import {
-  Text,
-  Card,
-  Grid,
-  Group,
-  Paper,
-  Divider,
-  Stack,
-  Button,
-} from "@mantine/core";
-import { usePlanet } from "../hooks";
-import { checkIfPropIsUnknown } from "../utils";
-import { ErrorState, LoadingState, TransactionTable } from "../components";
+import { Text, Grid, Divider, Button } from "@mantine/core";
+import { ErrorState, TransactionTable } from "../components";
+import { FinancialSummary } from "../components/FinancialSummary";
+import PlanetInfoTable from "../components/PlanetInfoTable";
 
 const PlanetDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const {
-    data: planet,
-    isLoading: planetLoading,
-    error: planetError,
-  } = usePlanet(id!);
-
-  if (planetLoading) {
-    return <LoadingState />;
-  }
-
-  if (planetError || !planet) {
+  if (!id) {
     return (
       <ErrorState
-        title="Error loading planet"
-        message="Failed to load planet data. Please try again."
+        title="Error missing id"
+        message="Failed render due to missing id. Please try again."
       />
     );
   }
@@ -42,61 +23,9 @@ const PlanetDetail: React.FC = () => {
       </Button>
 
       <Grid mt="xl">
-        <Grid.Col span={{ base: 12, lg: 4 }}>
-          <Card shadow="xl" p="xl" radius="lg">
-            <Text size="2xl" fw={700} ta="center">
-              {planet.name}
-            </Text>
+        <PlanetInfoTable id={id!} />
 
-            <Stack gap="lg">
-              <Group justify="space-between" p="md">
-                <Text size="sm" fw={600}>
-                  Climate:
-                </Text>
-                <Text size="sm" fw={700} c="gray.3">
-                  {planet.climate}
-                </Text>
-              </Group>
-
-              <Group justify="space-between" p="md">
-                <Text size="sm" fw={600}>
-                  Terrain:
-                </Text>
-                <Text size="sm" fw={700} c="gray.3">
-                  {planet.terrain}
-                </Text>
-              </Group>
-
-              <Group justify="space-between" p="md">
-                <Text size="sm" fw={600}>
-                  Population:
-                </Text>
-                <Text size="sm" fw={700} c="gray.3">
-                  {checkIfPropIsUnknown(planet.population)
-                    ? planet.population
-                    : parseInt(planet.population).toLocaleString()}
-                </Text>
-              </Group>
-
-              <Group justify="space-between" p="md">
-                <Text size="sm" fw={600}>
-                  Gravity:
-                </Text>
-                <Text size="sm" fw={700} c="gray.3">
-                  {planet.gravity}
-                </Text>
-              </Group>
-            </Stack>
-          </Card>
-        </Grid.Col>
-
-        <Grid.Col span={{ base: 12, lg: 8 }}>
-          <Paper shadow="xl" p="xl" radius="lg">
-            <Text size="2xl" fw={700}>
-              Financial Summary - Live Data
-            </Text>
-          </Paper>
-        </Grid.Col>
+        <FinancialSummary id={id!} />
       </Grid>
 
       <Divider
