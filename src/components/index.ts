@@ -4,4 +4,5 @@ export * from "./LoadingState";
 export * from "./ErrorState";
 export * from "./StatusBadge";
 export * from "./CurrencyBadge";
+export * from "./CurrencyCard";
 export * from "./TransactionTable";
