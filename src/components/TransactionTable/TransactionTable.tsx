@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTransactionsByUsers, useUsersByPlanet } from "../../hooks";
-import { Group, Paper, Text } from "@mantine/core";
+import { Group, Paper, Text, ScrollArea } from "@mantine/core";
 import { CurrencyOpts, Transaction } from "../../types";
 import { ErrorState } from "..";
 import { tableStyles } from "./tableStyles";
@@ -58,8 +58,19 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
     }
 
     return (
-      <Paper shadow="xl" p="xl" radius="lg" mb="xl" style={cardStyles}>
-        <Group justify="space-between" mb="xl">
+      <Paper
+        shadow="xl"
+        p={{ base: "sm", sm: "md", lg: "xl" }}
+        radius="lg"
+        mb="xl"
+        style={cardStyles}
+      >
+        <Group
+          justify="space-between"
+          mb={{ base: "md", sm: "lg", lg: "xl" }}
+          gap="sm"
+          wrap="wrap"
+        >
           <Text size="xl" fw={700} c="coruscant.3" style={textShadows.medium}>
             📋 Transaction History
           </Text>
@@ -70,28 +81,30 @@ export const TransactionTable: React.FC<TransactionTableProps> = React.memo(
         </Group>
 
         {filteredTransactions.length > 0 ? (
-          <table style={tableStyles.table}>
-            <TableHeader
-              columns={[
-                { label: "Date", key: "date" },
-                { label: "User ID", key: "user" },
-                { label: "Amount (GCS)", key: "gcs" },
-                { label: "Amount (ICS)", key: "ics" },
-                { label: "Status", key: "status" },
-              ]}
-            />
-            <tbody>
-              {filteredTransactions.map(
-                (transaction: Transaction, index: number) => (
-                  <TransactionRow
-                    key={transaction.id}
-                    transaction={transaction}
-                    index={index}
-                  />
-                )
-              )}
-            </tbody>
-          </table>
+          <ScrollArea.Autosize type="auto" scrollbars="x" offsetScrollbars>
+            <table style={{ ...tableStyles.table, minWidth: "600px" }}>
+              <TableHeader
+                columns={[
+                  { label: "Date", key: "date" },
+                  { label: "User ID", key: "user" },
+                  { label: "Amount (GCS)", key: "gcs" },
+                  { label: "Amount (ICS)", key: "ics" },
+                  { label: "Status", key: "status" },
+                ]}
+              />
+              <tbody>
+                {filteredTransactions.map(
+                  (transaction: Transaction, index: number) => (
+                    <TransactionRow
+                      key={transaction.id}
+                      transaction={transaction}
+                      index={index}
+                    />
+                  )
+                )}
+              </tbody>
+            </table>
+          </ScrollArea.Autosize>
         ) : (
           <Text c="gray.5" mt="md">
             No transactions found for users on this planet.
