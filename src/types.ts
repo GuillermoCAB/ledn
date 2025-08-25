@@ -62,3 +62,9 @@ export interface UsersResponse {
 export interface TransactionsResponse {
   transactions: Transaction[];
 }
+
+export enum TransactionStatus {
+  InProgress = "inProgress",
+  Completed = "completed",
+  Blocked = "blocked",
+}
