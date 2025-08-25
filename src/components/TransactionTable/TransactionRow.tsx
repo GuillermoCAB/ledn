@@ -1,31 +1,41 @@
 import React from "react";
-import { Transaction } from "../../types";
+import { CurrencyOpts, Transaction } from "../../types";
 import { tableStyles } from "./tableStyles";
 import { CurrencyBadge } from "../CurrencyBadge";
 import { StatusBadge } from "../StatusBadge";
+import { useConvertCurrency } from "../../hooks/useConvertCurrency";
 
 interface TransactionRowProps {
   transaction: Transaction;
 }
 
-const TransactionRow: React.FC<TransactionRowProps> = ({ transaction }) => (
-  <tr style={tableStyles.row}>
-    <td style={tableStyles.dateCell}>
-      {new Date(transaction.date).toLocaleDateString()}
-    </td>
-    <td style={tableStyles.userCell}>#{transaction.user}</td>
-    <td style={tableStyles.amountCell}>
-      <div style={tableStyles.group}>
-        {transaction.amount.toFixed(2)}
-        <CurrencyBadge currency={transaction.currency} />
-      </div>
-    </td>
-    <td style={tableStyles.currencyCell}>GCS</td>
-    <td style={tableStyles.currencyCell}>ICS</td>
-    <td>
-      <StatusBadge status={transaction.status} />
-    </td>
-  </tr>
-);
+const TransactionRow: React.FC<TransactionRowProps> = ({ transaction }) => {
+  const { convert } = useConvertCurrency();
+  return (
+    <tr style={tableStyles.row}>
+      <td style={tableStyles.dateCell}>
+        {new Date(transaction.date).toLocaleDateString()}
+      </td>
+      <td style={tableStyles.userCell}>#{transaction.user}</td>
+      <td style={tableStyles.amountCell}>
+        <div style={tableStyles.group}>
+          {transaction.amount.toFixed(2)}
+          <CurrencyBadge currency={transaction.currency} />
+        </div>
+      </td>
+      <td style={tableStyles.currencyCell}>
+        {convert(transaction.amount, transaction.currency, CurrencyOpts.GCS)}{" "}
+        GCS
+      </td>
+      <td style={tableStyles.currencyCell}>
+        {convert(transaction.amount, transaction.currency, CurrencyOpts.ICS)}{" "}
+        ICS
+      </td>
+      <td>
+        <StatusBadge status={transaction.status} />
+      </td>
+    </tr>
+  );
+};
 
 export default TransactionRow;
