@@ -111,6 +111,8 @@ src/
 
 ### Areas Where AI Was Used
 
+All AI usage was flagged by adding the [AI] in the end of the commit coment. ALL AI work was tested, reviwed and updated by me before commiting the work.
+
 #### 🤖 Components (AI-Generated)
 
 - **`StarBackground.tsx`**: Animated background component with CSS animations
